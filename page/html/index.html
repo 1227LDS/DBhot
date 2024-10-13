@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>消耗品信息后台管理中心</title>
+    <!-- 引入 Bootstrap v5.3.0 样式 -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <!-- 引入FontAwesome用于图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 全局样式 */
+        body {
+            background-color: #f7f9fc;
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; /* 禁用滚动条 */
+        }
+
+        .bg-dark {
+            background-color: #343a40;
+            color: white;
+        }
+
+        .container-fluid {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .row {
+            flex: 0 0 auto;
+        }
+
+        /* 头部样式 */
+        .bg-dark {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            color: white;
+        }
+
+        .bg-dark h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .bg-dark img {
+            margin-right: 10px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .header-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-icons .fa {
+            font-size: 1.5rem;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+
+        .header-icons img {
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+
+        .dropdown-menu {
+            right: 0;
+            left: auto;
+        }
+
+        /* 左侧导航栏 */
+        .sidebar {
+            background: #ffffff;
+            border-right: 1px solid #dee2e6;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+            width: 10vw;
+            min-width: 220px;
+        }
+
+        /* 菜单标题样式 */
+        .sidebar h5 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 10px;
+            border: 2px solid #343a40;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+
+        /* 一级菜单样式 */
+        .nav-link {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #495057;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: #495057;
+            color: white;
+        }
+
+        /* 一级菜单图标调整 */
+        .nav-link i {
+            margin-right: 12px;
+            font-size: 1.5rem;
+        }
+
+        /* 二级菜单样式 */
+        .nav-link + .collapse .nav-link {
+            font-size: 0.9rem;
+            font-weight: normal;
+            padding-left: 2rem;
+            color: #6c757d;
+        }
+
+        .nav-link + .collapse .nav-link:hover {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        /* 右侧内容区样式 */
+        main {
+            flex: 1;
+            width: calc(100% - 15vw);
+            overflow: hidden;
+            padding: 0;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <!-- 顶部导航栏 -->
+    <div class="row bg-dark text-white shadow-light">
+        <!-- 左侧标题和Logo -->
+        <div class="col d-flex align-items-center">
+            <h1 class="h3 mb-0">
+                <img src="../../assets/DeLe2.png" class="rounded-circle shadow-light" alt="Logo" />
+                消耗品信息后台管理中心
+            </h1>
+        </div>
+        
+        <!-- 右侧通知和用户信息 -->
+        <div class="col-auto">
+            <div class="header-icons d-flex align-items-center">
+                <i class="fa fa-bell"></i>
+                <i class="fa fa-envelope"></i>
+                <img src="https://via.placeholder.com/40" class="rounded-circle" alt="User">
+                <!-- 用户信息下拉菜单 -->
+                <div class="dropdown ms-3">
+                    <a href="#" class="dropdown-toggle text-white" data-bs-toggle="dropdown">
+                        用户名
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#">个人资料</a></li>
+                        <li><a class="dropdown-item" href="#">设置</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="login.html">退出登录</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="row flex-grow-1">
+        <!-- 左侧导航栏 -->
+        <nav class="sidebar">
+            <div class="sidebar-sticky pt-3">
+                <h5><i class="fa-solid fa-list"></i> 菜单列表</h5>
+                <ul class="nav flex-column">
+                    <!-- 消耗品管理 -->
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#collapseConsumables" role="button" aria-expanded="true" aria-controls="collapseConsumables">
+                            <i class="fa-solid fa-box-archive"></i> 消耗品管理
+                        </a>
+                        <div class="collapse" id="collapseConsumables">
+                            <ul class="nav flex-column ms-3">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="saveCbs.html" target="right"><i class="fa-solid fa-plus"></i> 添加消耗品</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- 审核管理 -->
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#collapseApproval" role="button" aria-expanded="true" aria-controls="collapseApproval">
+                            <i class="fa-solid fa-paper-plane"></i> 审核管理
+                        </a>
+                        <div class="collapse" id="collapseApproval">
+                            <ul class="nav flex-column ms-3">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="approveIn.html" target="right">
+                                        <i class="fa-solid fa-check-circle"></i> 入库审核
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="approveOut.html" target="right">
+                                        <i class="fa-solid fa-clipboard-check"></i> 领用审核
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- 员工管理 -->
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#collapseStaff" role="button" aria-expanded="true" aria-controls="collapseStaff">
+                            <i class="fa-solid fa-users"></i> 员工管理
+                        </a>
+                        <div class="collapse" id="collapseStaff">
+                            <ul class="nav flex-column ms-3">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="empList.html" target="right"><i class="fa-solid fa-user-friends"></i> 员工列表</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="saveEmp.html" target="right"><i class="fa-solid fa-user-plus"></i> 添加员工</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- 系统管理 -->
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#collapseSystem" role="button" aria-expanded="true" aria-controls="collapseSystem">
+                            <i class="fa-solid fa-cogs"></i> 系统管理
+                        </a>
+                        <div class="collapse" id="collapseSystem">
+                            <ul class="nav flex-column ms-3">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="alterPwd.html" target="right"><i class="fa-solid fa-key"></i> 修改密码</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="login.html" target="_parent"><i class="fa-solid fa-sign-out-alt"></i> 退出系统</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- 右侧内容区 -->
+        <main>
+            <iframe src="index copy.html" name="right"></iframe>
+        </main>
+    </div>
+</div>
+</body>
+</html>
